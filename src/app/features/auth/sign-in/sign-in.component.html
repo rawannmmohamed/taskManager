@@ -1,1 +1,44 @@
-<p>sign-in works!</p>
+<div class="flex align-items-center justify-content-center h-screen">
+  <div class="surface-card p-5 shadow-4 border-round w-full lg:w-6">
+    <div class="text-center mb-5 flex flex-column">
+      <img src="/assets/Logo.svg" alt="Image" height="50" class="mb-3" />
+      
+    </div>
+
+    <div>
+      <label for="email1" class="block font-medium mb-2">Email</label>
+      <input
+        id="email1"
+        type="text"
+        placeholder="Email address"
+        pInputText
+        class="w-full mb-3"
+      />
+
+      <label for="password1" class="block font-medium mb-2">Password</label>
+      <input
+        id="password1"
+        type="password"
+        placeholder="Password"
+        pInputText
+        class="w-full mb-3"
+      />
+
+      <button
+        pButton
+        pRipple
+        label="Sign In"
+        icon="pi pi-user"
+        class="w-full mb-3"
+      ></button>
+      <span class="font-medium line-height-3"
+        >Don't have an account?
+        <a
+          class="font-medium no-underline ml-2 cursor-pointer"
+          routerLink="/sign-up"
+          >Sign Up</a
+        ></span
+      >
+    </div>
+  </div>
+</div>

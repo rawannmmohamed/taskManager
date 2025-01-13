@@ -8,6 +8,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { definePreset } from '@primeng/themes';
 import { AuthRoutingModule } from './features/auth/auth-routing.module';
+import { AuthModule } from './features/auth/auth.module';
+
 const MyPreset = definePreset(Aura, {
   semantic: {
     primary: {
@@ -27,7 +29,7 @@ const MyPreset = definePreset(Aura, {
 });
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, ButtonModule, AuthRoutingModule],
+  imports: [BrowserModule, AppRoutingModule, ButtonModule, AuthRoutingModule,AuthModule],
   providers: [
     provideAnimationsAsync(),
     providePrimeNG({
