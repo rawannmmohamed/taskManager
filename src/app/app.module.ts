@@ -9,6 +9,13 @@ import { AppComponent } from './app.component';
 import { definePreset } from '@primeng/themes';
 import { AuthRoutingModule } from './features/auth/auth-routing.module';
 import { AuthModule } from './features/auth/auth.module';
+import {
+  HTTP_INTERCEPTORS,
+  provideHttpClient,
+  withInterceptors,
+} from '@angular/common/http';
+import { interceptorInterceptor } from './core/interceptor/interceptor.interceptor';
+import { FormsModule } from '@angular/forms';
 
 const MyPreset = definePreset(Aura, {
   semantic: {
@@ -29,8 +36,16 @@ const MyPreset = definePreset(Aura, {
 });
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, ButtonModule, AuthRoutingModule,AuthModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    ButtonModule,
+    AuthRoutingModule,
+    AuthModule,
+    FormsModule,
+  ],
   providers: [
+    provideHttpClient(withInterceptors([interceptorInterceptor])),
     provideAnimationsAsync(),
     providePrimeNG({
       theme: {

@@ -13,6 +13,8 @@
           placeholder="Email address"
           pInputText
           class="w-full mb-3"
+          [(ngModel)]="email"
+
         />
   
         <label for="password1" class="block font-medium mb-2">Password</label>
@@ -22,6 +24,7 @@
           placeholder="Password"
           pInputText
           class="w-full mb-3"
+          [(ngModel)]="password"
         />
   
         <button
@@ -30,6 +33,7 @@
           label="Sign Up"
           icon="pi pi-user"
           class="w-full mb-3"
+          (click)="onSubmit()"
         ></button>
         <span class="font-medium line-height-3"
           >Already have an account?
@@ -39,6 +43,9 @@
             >Sign In</a
           ></span
         >
+        @if(errorMessage){
+          <div>{{ errorMessage }}</div>
+          }
       </div>
     </div>
   </div>

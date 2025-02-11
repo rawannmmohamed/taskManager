@@ -2,7 +2,6 @@
   <div class="surface-card p-5 shadow-4 border-round w-full lg:w-6">
     <div class="text-center mb-5 flex flex-column">
       <img src="/assets/Logo.svg" alt="Image" height="50" class="mb-3" />
-      
     </div>
 
     <div>
@@ -13,6 +12,7 @@
         placeholder="Email address"
         pInputText
         class="w-full mb-3"
+        [(ngModel)]="email"
       />
 
       <label for="password1" class="block font-medium mb-2">Password</label>
@@ -22,6 +22,7 @@
         placeholder="Password"
         pInputText
         class="w-full mb-3"
+        [(ngModel)]="password"
       />
 
       <button
@@ -30,6 +31,7 @@
         label="Sign In"
         icon="pi pi-user"
         class="w-full mb-3"
+        (click)="onSubmit()"
       ></button>
       <span class="font-medium line-height-3"
         >Don't have an account?
@@ -39,6 +41,9 @@
           >Sign Up</a
         ></span
       >
+      @if(errorMessage){
+      <div>{{ errorMessage }}</div>
+      }
     </div>
   </div>
 </div>
