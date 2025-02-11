@@ -9,7 +9,7 @@ import { User } from '../../models/user';
 export class AuthService {
   private userSubject: BehaviorSubject<User | null> =
     new BehaviorSubject<User | null>(null);
-  user$ = this.userSubject.asObservable();
+ 
 
   constructor(private http: HttpClient) {}
 
@@ -34,7 +34,6 @@ export class AuthService {
   }
 
   isLoggedIn(): boolean {
-    console.log('Checking login status');
     return this.userSubject.value !== null;
   }
 
@@ -61,7 +60,6 @@ export class AuthService {
       })
     );
   }
-  
 
   checkEmailExists(email: string): Observable<boolean> {
     const users = this.userSubject.value ? [this.userSubject.value] : [];
