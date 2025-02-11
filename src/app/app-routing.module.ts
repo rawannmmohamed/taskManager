@@ -11,6 +11,7 @@ const routes: Routes = [
   {
     path: 'dashboard',
     canActivate:[authGuard],
+    title:'TaskMinder | Dashboard',
     loadChildren: () => import('./features/dashboard/dashboard.module').then(m => m.DashboardModule)
   }
   
