@@ -16,6 +16,10 @@ import {
 } from '@angular/common/http';
 import { interceptorInterceptor } from './core/interceptor/interceptor.interceptor';
 import { FormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { authReducer } from './ngrx/auth/auth.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { AuthEffects } from './ngrx/auth/auth.effects';
 
 const MyPreset = definePreset(Aura, {
   semantic: {
@@ -43,6 +47,8 @@ const MyPreset = definePreset(Aura, {
     AuthRoutingModule,
     AuthModule,
     FormsModule,
+    StoreModule.forRoot({auth: authReducer}),
+    EffectsModule.forRoot([AuthEffects])
   ],
   providers: [
     provideHttpClient(withInterceptors([interceptorInterceptor])),

@@ -4,3 +4,7 @@ export interface User {
   password: string;
   role: 'admin' | 'user';
 }
+export interface AuthState {
+  user: User | null;
+  error: string | null;
+}

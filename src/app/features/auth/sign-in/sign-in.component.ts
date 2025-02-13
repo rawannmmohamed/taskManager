@@ -1,6 +1,9 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../core/services/auth.service';
+import { Store } from '@ngrx/store';
+import { login } from '../../../ngrx/auth/auth.actions';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { selectAuthError, selectUser } from '../../../ngrx/auth/auth.selectors';
 
 @Component({
   selector: 'app-sign-in',
@@ -9,26 +12,33 @@ import { Router } from '@angular/router';
   styleUrls: ['./sign-in.component.scss'],
 })
 export class SignInComponent {
-  email: string = '';
-  password: string = '';
-  errorMessage: string = '';
+  email = '';
+  password = '';
+  errorMessage: string | null = null;
+  error$: Observable<string | null>;
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private store: Store, private router: Router) {
+    this.error$ = this.store.select(selectAuthError);
+  }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.email && this.password) {
-      this.authService.login(this.email, this.password).subscribe({
-        next: (user) => {
-          if (!user) {
-            this.errorMessage = 'Invalid email or password';
-          } else {
-            this.router.navigate(['dashboard']);
-          }
-        },
-        error: () => {
-          this.errorMessage = 'An error occurred during login';
-        },
-      });
+      this.store.dispatch(login({ email: this.email, password: this.password }));
+    } else {
+      this.errorMessage = 'Please enter email and password';
     }
+
+    
+    this.store.select(selectUser).subscribe(user => {
+      if (user) {
+        this.router.navigate(['/dashboard']); 
+      }
+    });
+
+    this.store.select(selectAuthError).subscribe(error => {
+      if (error) {
+        this.errorMessage = error; 
+      }
+    });
   }
 }

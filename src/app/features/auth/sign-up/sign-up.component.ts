@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../../../core/services/auth.service';
-import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { AuthState } from '../../../models/user';
+import { signup } from '../../../ngrx/auth/auth.actions';
 
 @Component({
   selector: 'app-sign-up',
@@ -15,24 +16,11 @@ export class SignUpComponent {
   role: 'user' = 'user';
   errorMessage: string = '';
 
-  constructor(private authService: AuthService, private router: Router) {}
+  constructor(private store: Store<{ auth: AuthState }>) {}
 
   onSubmit() {
-    if (!this.email || !this.password || !this.role) {
-      console.log('Validation failed: One or more fields are empty');
-      this.errorMessage = 'Please fill in all fields';
-      return;
+    if (this.email && this.password) {
+      this.store.dispatch(signup({ email: this.email, password: this.password, role: 'user' }));
     }
-
-    this.authService.signup(this.email, this.password, this.role).subscribe({
-      next: (user) => {
-        if (user) {
-          this.router.navigate([`dashboard`]);
-        }
-      },
-      error: (error) => {
-        this.errorMessage = `${error}`;
-      },
-    });
   }
 }
