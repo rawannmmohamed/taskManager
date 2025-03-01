@@ -23,21 +23,23 @@ export class SignInComponent {
 
   onSubmit(): void {
     if (this.email && this.password) {
-      this.store.dispatch(login({ email: this.email, password: this.password }));
+      this.store.dispatch(
+        login({ email: this.email, password: this.password })
+      );
+
+      this.store.select(selectUser).subscribe((user) => {
+        if (user?.email === this.email && user.password === this.password) {
+          console.log('serlected user', user.email, user.password);
+          this.router.navigate(['/dashboard']);
+        }
+      });
     } else {
       this.errorMessage = 'Please enter email and password';
     }
 
-    
-    this.store.select(selectUser).subscribe(user => {
-      if (user) {
-        this.router.navigate(['/dashboard']); 
-      }
-    });
-
-    this.store.select(selectAuthError).subscribe(error => {
+    this.store.select(selectAuthError).subscribe((error) => {
       if (error) {
-        this.errorMessage = error; 
+        this.errorMessage = error;
       }
     });
   }

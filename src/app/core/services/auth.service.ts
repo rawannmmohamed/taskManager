@@ -9,7 +9,6 @@ import { User } from '../../models/user';
 export class AuthService {
   private userSubject: BehaviorSubject<User | null> =
     new BehaviorSubject<User | null>(null);
- 
 
   constructor(private http: HttpClient) {}
 

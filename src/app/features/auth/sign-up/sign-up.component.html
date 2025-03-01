@@ -1,52 +1,49 @@
 <div class="flex align-items-center justify-content-center h-screen">
-    <div class="surface-card p-5 shadow-4 border-round w-full lg:w-6">
-      <div class="text-center mb-5 flex flex-column">
-        <img src="/assets/Logo.svg" alt="Image" height="50" class="mb-3" />
-        
-      </div>
-  
-      <div>
-        <label for="email1" class="block font-medium mb-2">Email</label>
-        <input
-          id="email1"
-          type="text"
-          placeholder="Email address"
-          pInputText
-          class="w-full mb-3"
-          [(ngModel)]="email"
+  <div class="surface-card p-5 shadow-4 border-round w-full lg:w-6">
+    <div class="text-center mb-5 flex flex-column">
+      <img src="/assets/Logo.svg" alt="Image" height="50" class="mb-3" />
+    </div>
 
-        />
-  
-        <label for="password1" class="block font-medium mb-2">Password</label>
-        <input
-          id="password1"
-          type="password"
-          placeholder="Password"
-          pInputText
-          class="w-full mb-3"
-          [(ngModel)]="password"
-        />
-  
-        <button
-          pButton
-          pRipple
-          label="Sign Up"
-          icon="pi pi-user"
-          class="w-full mb-3"
-          (click)="onSubmit()"
-        ></button>
-        <span class="font-medium line-height-3"
-          >Already have an account?
-          <a
-            class="font-medium no-underline ml-2 cursor-pointer"
-            routerLink="/sign-in"
-            >Sign In</a
-          ></span
-        >
-        @if(errorMessage){
-          <div>{{ errorMessage }}</div>
-          }
-      </div>
+    <div>
+      <label for="email1" class="block font-medium mb-2">Email</label>
+      <input
+        id="email1"
+        type="text"
+        placeholder="Email address"
+        pInputText
+        class="w-full mb-3"
+        [(ngModel)]="email"
+      />
+
+      <label for="password1" class="block font-medium mb-2">Password</label>
+      <input
+        id="password1"
+        type="password"
+        placeholder="Password"
+        pInputText
+        class="w-full mb-3"
+        [(ngModel)]="password"
+      />
+
+      <button
+        pButton
+        pRipple
+        label="Sign Up"
+        icon="pi pi-user"
+        class="w-full mb-3"
+        (click)="onSubmit()"
+      ></button>
+      <span class="font-medium line-height-3"
+        >Already have an account?
+        <a
+          class="font-medium no-underline ml-2 cursor-pointer"
+          routerLink="/sign-in"
+          >Sign In</a
+        ></span
+      >
+      @if(errorMessage){
+      <div>{{ errorMessage }}</div>
+      }
     </div>
   </div>
-  
+</div>
