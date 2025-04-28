@@ -6,8 +6,9 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { FormsModule } from '@angular/forms';
+import { AuthComponent } from './auth/auth.component';
 @NgModule({
-  declarations: [SignInComponent, SignUpComponent],
+  declarations: [SignInComponent, SignUpComponent, AuthComponent],
   imports: [CommonModule, AuthRoutingModule,InputTextModule,ButtonModule,FormsModule],
   
 })

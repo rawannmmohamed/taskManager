@@ -58,6 +58,7 @@ const MyPreset = definePreset(Aura, {
         preset: MyPreset,
         options: {
           darkModeSelector: false,
+         
         },
       },
     }),

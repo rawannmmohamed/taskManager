@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AuthState, User } from '../../../models/user';
+import { User } from '../../../models/user';
 import { signup } from '../../../ngrx/auth/auth.actions';
 import { selectAuthError, selectUser } from '../../../ngrx/auth/auth.selectors';
 import { Observable } from 'rxjs';
