@@ -47,7 +47,7 @@ export class AuthService {
         if (exists) {
           throw new Error('Email already exists');
         }
-        const newUser: User = { id: this.generateId(), email, password, role };
+        const newUser: User = { id: this.generateId(), email, password, role , image:''};
         return this.http.post<User>(
           'https://67828a3fc51d092c3dcfe2da.mockapi.io/api/users',
           newUser

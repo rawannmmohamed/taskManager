@@ -8,9 +8,14 @@ import { DashboardLayoutComponent } from './dashboard-layout/dashboard-layout.co
 import { AuthModule } from '../auth/auth.module';
 import { MenubarModule } from 'primeng/menubar';
 import { InputTextModule } from 'primeng/inputtext';
+import { TableModule } from 'primeng/table';
+import { ToastModule } from 'primeng/toast';
+import { TagModule } from 'primeng/tag';
+import { SelectModule } from 'primeng/select';
+
 @NgModule({
   declarations: [UserComponent, AdminComponent, DashboardLayoutComponent],
-  imports: [CommonModule, DashboardRoutingModule,AuthModule, MenubarModule,AvatarModule, InputTextModule],
+  imports: [CommonModule, DashboardRoutingModule,AuthModule, MenubarModule,AvatarModule, InputTextModule,TableModule, ToastModule, TagModule, SelectModule],
   
 })
 export class DashboardModule {}

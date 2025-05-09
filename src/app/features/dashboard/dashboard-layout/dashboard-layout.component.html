@@ -1,20 +1,126 @@
-<p-menubar [model]="">
-    <ng-template #start>
-        <img src="./assets/Logo.svg" alt="app logo" class="w-100">
-    </ng-template>
-    <ng-template #item let-item let-root="root">
-        <a pRipple class="flex items-center p-menubar-item-link">
-            <span>{{ item.label }}</span>
-            <p-badge *ngIf="item.badge" [ngClass]="{ 'ml-auto': !root, 'ml-2': root }"  />
-            <span *ngIf="item.shortcut" class="ml-auto border border-surface rounded bg-emphasis text-muted-color text-xs p-1">{{ item.shortcut }}</span>
-            <i *ngIf="item.items" [ngClass]="['ml-auto pi', root ? 'pi-angle-down' : 'pi-angle-right']"></i>
-        </a>
-    </ng-template>
-    <ng-template #end>
-        <div class="flex items-center gap-2">
-            <input type="text" pInputText placeholder="Search" class="w-36" />
-            <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" shape="circle" />
-        </div>
-    </ng-template>
+<p-menubar>
+  <ng-template #start>
+    <img src="./assets/Logo.svg" alt="app logo" class="w-100" />
+  </ng-template>
+
+  <ng-template #end>
+    <div class="flex items-center gap-2">
+      <p-avatar [image]="avatar" shape="circle" />
+    </div>
+  </ng-template>
 </p-menubar>
-<router-outlet />
+<p-table
+  [value]="tasks"
+  dataKey="id"
+  editMode="row"
+  [tableStyle]="{ 'min-width': '50rem' }"
+>
+  <ng-template #header>
+    <tr>
+      <th style="width: 20%">Code</th>
+      <th style="width: 20%">Name</th>
+      <th style="width: 20%">Status</th>
+      <th style="width: 20%"></th>
+      <th style="width: 20%"></th>
+    </tr>
+  </ng-template>
+  <ng-template #body let-product let-editing="editing" let-ri="rowIndex">
+    <tr [pEditableRow]="product">
+      <td>
+        <p-cellEditor>
+          <!-- <ng-template #input>
+                      <input
+                          pInputText
+                          type="text"
+                          [(ngModel)]="tasks.code" />
+                  </ng-template> -->
+          <ng-template #output>
+            {{ tasks }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <!-- <ng-template #input>
+                      <input
+                          pInputText type="text"
+                          [(ngModel)]="tasks.name"
+                          required />
+                  </ng-template> -->
+          <!-- <ng-template #output>
+                      {{tasks.name}}
+                  </ng-template> -->
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <!-- <ng-template #input>
+                      <p-select
+                          [options]="statuses"
+                          appendTo="body"
+                          [(ngModel)]="tasks.inventoryStatus"
+                          [style]="{'width':'100%'}" />
+                  </ng-template> -->
+          <!-- <ng-template #output>
+                      <p-tag
+                          [value]="tasks.inventoryStatus"
+                          [severity]="getSeverity(tasks.inventoryStatus)" />
+                  </ng-template> -->
+        </p-cellEditor>
+      </td>
+      <td>
+        <p-cellEditor>
+          <!-- <ng-template #input>
+                      <input
+                          pInputText
+                          type="text"
+                          [(ngModel)]="tasks.price" />
+                  </ng-template> -->
+          <!-- <ng-template #output>
+                      {{tasks.price | currency: 'USD'}}
+                  </ng-template> -->
+        </p-cellEditor>
+      </td>
+      <td>
+        <div class="flex items-center justify-center gap-2">
+          <button
+            *ngIf="!editing"
+            pButton
+            pRipple
+            type="button"
+            pInitEditableRow
+            icon="pi pi-pencil"
+            (click)="onRowEditInit(tasks)"
+            text
+            rounded
+            severity="secondary"
+          ></button>
+          <button
+            *ngIf="editing"
+            pButton
+            pRipple
+            type="button"
+            pSaveEditableRow
+            icon="pi pi-check"
+            (click)="onRowEditSave(tasks)"
+            text
+            rounded
+            severity="secondary"
+          ></button>
+          <button
+            *ngIf="editing"
+            pButton
+            pRipple
+            type="button"
+            pCancelEditableRow
+            icon="pi pi-times"
+            (click)="onRowEditCancel(tasks, ri)"
+            text
+            rounded
+            severity="secondary"
+          ></button>
+        </div>
+      </td>
+    </tr>
+  </ng-template>
+</p-table>

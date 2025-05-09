@@ -18,24 +18,23 @@
     class="w-full mb-3"
     [(ngModel)]="password"
   />
-  
 </div>
 <button
-        pButton
-        pRipple
-        label="Sign In"
-        icon="pi pi-user"
-        class="w-full mb-3"
-        (click)="onSubmit()"
-      ></button>
-      <span class="font-medium line-height-3"
-        >Don't have an account?
-        <a
-          class="font-medium no-underline ml-2 cursor-pointer"
-          routerLink="/auth/sign-up"
-          >Sign Up</a
-        ></span
-      >
-      @if(errorMessage){
-      <div>{{ errorMessage }}</div>
-      }
+  pButton
+  pRipple
+  label="Sign In"
+  icon="pi pi-user"
+  class="w-full mb-3"
+  (click)="onSubmit()"
+></button>
+<span class="font-medium line-height-3"
+  >Don't have an account?
+  <a
+    class="font-medium no-underline ml-2 cursor-pointer"
+    routerLink="/auth/sign-up"
+    >Sign Up</a
+  ></span
+>
+@if(errorMessage){
+<div>{{ errorMessage }}</div>
+}
