@@ -26,37 +26,47 @@ export class DashboardLayoutComponent {
               code: 'A-001',
               user: 'example@gmail.com',
               title: 'Admin Task 1',
-              progress: 'completed',
+              status: 'Completed',
             },
             {
               code: 'A-002',
               user: 'example@gmail.com',
               title: 'Admin Task 2',
-              progress: 'pending',
+              status: 'Ongoing',
+            },
+             {
+              code: 'A-003',
+              user: 'example@gmail.com',
+              title: 'Admin Task 3',
+              status: 'Pending',
             },
           ];
         } else  {
           this.tasks = [
-            { code: 'U-001', name: 'User Task 1', status: 'done' },
-            { code: 'U-002', name: 'User Task 2', status: 'in-progress' },
+            { code: 'U-001', title: 'User Task 1', date:'03 oct, 2023' ,status: 'Completed' },
+            { code: 'U-002', title: 'User Task 2', date:'03 oct, 2023' ,status: 'Ongoing' },
+            { code: 'U-003', title: 'User Task 3', date:'03 oct, 2023' ,status: 'Pending' },
           ];
         }
       }
     });
   }
 
-  getSeverity(
-    arg0: any
-  ):
-    | 'success'
-    | 'secondary'
-    | 'info'
-    | 'warn'
-    | 'danger'
-    | 'contrast'
-    | undefined {
-    throw new Error('Method not implemented.');
+ getSeverity(
+  status: string
+): 'success' | 'secondary' | 'info' | 'warn' {
+  switch (status) {
+    case 'Completed':
+      return 'success';
+    case 'Pending':
+      return 'warn';
+    case 'Ongoing':
+      return 'info';
+    default:
+      return 'secondary';
   }
+}
+
 
   onRowEditInit(_t22: any) {
     throw new Error('Method not implemented.');

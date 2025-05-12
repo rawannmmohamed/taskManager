@@ -17,75 +17,77 @@
 >
   <ng-template #header>
     <tr>
-      <th class="w-1/4">Code</th>
+      <th class="w-1/3">Code</th>
       @if(role ==='admin'){
-      <th class="w-1/4">User</th>
+      <th class="w-1/3">User</th>
+      } @else {
+      <th class="w-1/3">Date</th>
       }
-      <th class="w-1/4">
-        {{ role === "admin" ? "Title" : "Name" }}
-      </th>
-      <th class="w-1/4">
-        {{ role === "admin" ? "Progress" : "Status" }}
-      </th>
+      <th class="w-1/3">Title</th>
+      <th class="w-1/3">Status</th>
+      <th class="w-1/3"></th>
     </tr>
   </ng-template>
-  <ng-template #body let-product let-editing="editing" let-ri="rowIndex">
-    <tr [pEditableRow]="product">
+
+  <ng-template #body let-task let-editing="editing" let-ri="rowIndex">
+    <tr [pEditableRow]="task">
       <td>
         <p-cellEditor>
-          <!-- <ng-template #input>
-                      <input
-                          pInputText
-                          type="text"
-                          [(ngModel)]="tasks.code" />
-                  </ng-template> -->
+          <ng-template #input>
+            <input pInputText type="text" [(ngModel)]="task.code" />
+          </ng-template>
           <ng-template #output>
-            {{ tasks }}
+            {{ task.code }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      <td>
+        @if(role ==='admin'){
+        <p-cellEditor>
+          <ng-template #input>
+            <input pInputText type="text" [(ngModel)]="task.user" required />
+          </ng-template>
+          <ng-template #output>
+            {{ task.user }}
+          </ng-template> </p-cellEditor
+        >} @else {
+        <p-cellEditor>
+          <ng-template #input>
+            <input pInputText type="text" [(ngModel)]="task.date" required />
+          </ng-template>
+          <ng-template #output>
+            {{ task.date }}
+          </ng-template>
+        </p-cellEditor>
+        }
+      </td>
+      <td>
+        <p-cellEditor>
+          <ng-template #input>
+            <input pInputText type="text" [(ngModel)]="task.title" />
+          </ng-template>
+          <ng-template #output>
+            {{ task.title }}
           </ng-template>
         </p-cellEditor>
       </td>
       <td>
         <p-cellEditor>
-          <!-- <ng-template #input>
-                      <input
-                          pInputText type="text"
-                          [(ngModel)]="tasks.name"
-                          required />
-                  </ng-template> -->
-          <!-- <ng-template #output>
-                      {{tasks.name}}
-                  </ng-template> -->
-        </p-cellEditor>
-      </td>
-      <td>
-        <p-cellEditor>
-          <!-- <ng-template #input>
+          <ng-template #input>
                       <p-select
                           [options]="statuses"
                           appendTo="body"
-                          [(ngModel)]="tasks.inventoryStatus"
+                          [(ngModel)]="task.status"
                           [style]="{'width':'100%'}" />
-                  </ng-template> -->
-          <!-- <ng-template #output>
+                  </ng-template> 
+           <ng-template #output>
                       <p-tag
-                          [value]="tasks.inventoryStatus"
-                          [severity]="getSeverity(tasks.inventoryStatus)" />
-                  </ng-template> -->
+                          [value]="task.status"
+                          [severity]="getSeverity(task.status)" />
+                  </ng-template>
         </p-cellEditor>
       </td>
-      <td>
-        <p-cellEditor>
-          <!-- <ng-template #input>
-                      <input
-                          pInputText
-                          type="text"
-                          [(ngModel)]="tasks.price" />
-                  </ng-template> -->
-          <!-- <ng-template #output>
-                      {{tasks.price | currency: 'USD'}}
-                  </ng-template> -->
-        </p-cellEditor>
-      </td>
+
       <td>
         <div class="flex items-center justify-center gap-2">
           <button

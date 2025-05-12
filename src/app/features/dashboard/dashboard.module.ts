@@ -12,10 +12,11 @@ import { TableModule } from 'primeng/table';
 import { ToastModule } from 'primeng/toast';
 import { TagModule } from 'primeng/tag';
 import { SelectModule } from 'primeng/select';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [UserComponent, AdminComponent, DashboardLayoutComponent],
-  imports: [CommonModule, DashboardRoutingModule,AuthModule, MenubarModule,AvatarModule, InputTextModule,TableModule, ToastModule, TagModule, SelectModule],
+  imports: [CommonModule, DashboardRoutingModule,AuthModule, MenubarModule,AvatarModule, InputTextModule,TableModule, ToastModule, TagModule, SelectModule,FormsModule],
   
 })
 export class DashboardModule {}
