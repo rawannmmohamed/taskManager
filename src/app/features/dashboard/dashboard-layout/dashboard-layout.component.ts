@@ -30,7 +30,10 @@ export class DashboardLayoutComponent {
             console.log(this.tasks)
           });
         } else {
-          return
+           this.tasksService.getTasksById(user.id).subscribe((data:Task[])=>{
+           this.tasks = data
+           console.log(this.tasks)
+          })
         }
       }
     });
