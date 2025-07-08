@@ -17,9 +17,9 @@
 >
   <ng-template #header>
     <tr>
-      <th class="w-1/3">Code</th>
+      <th class="w-1/3">Task Code</th>
       @if(role ==='admin'){
-      <th class="w-1/3">User</th>
+      <th class="w-1/3">User ID</th>
       } @else {
       <th class="w-1/3">Date</th>
       }
@@ -34,21 +34,21 @@
       <td>
         <p-cellEditor>
           <ng-template #input>
-            <input pInputText type="text" [(ngModel)]="task.code" />
+            <input pInputText type="text" [(ngModel)]="task.id" />
           </ng-template>
           <ng-template #output>
-            {{ task.code }}
+            {{ task.id }}
           </ng-template>
         </p-cellEditor>
       </td>
       <td>
         @if(role ==='admin'){
         <p-cellEditor>
-          <ng-template #input>
-            <input pInputText type="text" [(ngModel)]="task.user" required />
+          <ng-template #input> 
+            <input pInputText type="text" [(ngModel)]="task.assignedTo" required />
           </ng-template>
           <ng-template #output>
-            {{ task.user }}
+            {{ task.assignedTo }}
           </ng-template> </p-cellEditor
         >} @else {
         <p-cellEditor>
@@ -74,17 +74,19 @@
       <td>
         <p-cellEditor>
           <ng-template #input>
-                      <p-select
-                          [options]="statuses"
-                          appendTo="body"
-                          [(ngModel)]="task.status"
-                          [style]="{'width':'100%'}" />
-                  </ng-template> 
-           <ng-template #output>
-                      <p-tag
-                          [value]="task.status"
-                          [severity]="getSeverity(task.status)" />
-                  </ng-template>
+            <p-select
+              [options]="statuses"
+              appendTo="body"
+              [(ngModel)]="task.status"
+              [style]="{ width: '100%' }"
+            />
+          </ng-template>
+          <ng-template #output>
+            <p-tag
+              [value]="task.status"
+              [severity]="getSeverity(task.status)"
+            />
+          </ng-template>
         </p-cellEditor>
       </td>
 
