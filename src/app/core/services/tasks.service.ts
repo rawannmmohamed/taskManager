@@ -26,4 +26,10 @@ export class TasksService {
       newTask
     );
   }
+  addNewTask(newTask: Task, userId: string) {
+    return this.http.post<Task>(
+      `https://67828a3fc51d092c3dcfe2da.mockapi.io/api/users/${userId}/tasks`,
+      newTask
+    );
+  }
 }

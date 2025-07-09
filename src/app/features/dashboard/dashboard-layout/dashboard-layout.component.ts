@@ -71,4 +71,23 @@ export class DashboardLayoutComponent {
         },
       });
   }
+  addNewTask() {
+    const newTask: Task = {
+      id: Math.floor(Math.random() * 1000000).toString(),
+      title: '',
+      status: 'Pending',
+      assignedTo: this.userId,
+      description: '',
+    };
+    this.tasksService.addNewTask(newTask, this.userId).subscribe({
+      next: () => {
+        console.log('New Task:', newTask);
+      },
+      error: (err) => {
+        console.error('Error adding new task:', err);
+      },
+    });
+
+    this.tasks = [newTask, ...this.tasks];
+  }
 }

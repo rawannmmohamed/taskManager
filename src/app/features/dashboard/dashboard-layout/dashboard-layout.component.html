@@ -16,6 +16,20 @@
   [tableStyle]="{ 'min-width': '50rem' }"
 >
   <ng-template #header>
+    @if(role ==='user'){
+    <tr>
+      <td colspan="5">
+        <button
+          pButton
+          label="Add Task"
+          icon="pi pi-plus"
+          class="w-full"
+          (click)="addNewTask()"
+        ></button>
+      </td>
+    </tr>
+    }
+
     <tr>
       <th class="w-1/3">Task Code</th>
       <th class="w-1/3">Title</th>
@@ -92,6 +106,7 @@
               type="text"
               [(ngModel)]="task.description"
               required
+              fluid
             />
           </ng-template>
           <ng-template #output>
