@@ -14,8 +14,9 @@ import { Task } from '../../../models/task';
 export class DashboardLayoutComponent {
   avatar = '';
   role = '';
-  tasks: any[] = [];
+  tasks: Task[] = [];
   statuses: any[] | undefined;
+  userId = '';
 
   constructor(private store: Store, private tasksService: TasksService) {}
   ngOnInit(): void {
@@ -23,20 +24,26 @@ export class DashboardLayoutComponent {
       if (user) {
         this.avatar = user.image;
         this.role = user.role;
+        this.userId = user.id;
         if (this.role === 'admin') {
-          this.tasksService.getallTasks().subscribe((data:Task[]) => {
+          this.tasksService.getallTasks().subscribe((data: Task[]) => {
             this.tasks = data;
-            console.log(data)
-            console.log(this.tasks)
+            console.log(data);
+            console.log(this.tasks);
           });
         } else {
-           this.tasksService.getTasksById(user.id).subscribe((data:Task[])=>{
-           this.tasks = data
-           console.log(this.tasks)
-          })
+          this.tasksService.getTasksById(user.id).subscribe((data: Task[]) => {
+            this.tasks = data;
+            console.log(this.tasks);
+          });
         }
       }
     });
+    this.statuses = [
+      { label: 'Completed', value: 'Completed' },
+      { label: 'Pending', value: 'Pending' },
+      { label: 'Ongoing', value: 'Ongoing' },
+    ];
   }
 
   getSeverity(status: string): 'success' | 'secondary' | 'info' | 'warn' {
@@ -52,15 +59,16 @@ export class DashboardLayoutComponent {
     }
   }
 
-  onRowEditInit(_t22: any) {
-    throw new Error('Method not implemented.');
-  }
-
-  onRowEditSave(_t22: any) {
-    throw new Error('Method not implemented.');
-  }
-
-  onRowEditCancel(_t22: any, _t24: any) {
-    throw new Error('Method not implemented.');
+  onRowEditSave(editedTask: Task) {
+    this.tasksService
+      .updateTask(editedTask.id, this.userId, editedTask)
+      .subscribe({
+        next: () => {
+          console.log('Task updated:', editedTask);
+        },
+        error: (err) => {
+          console.error('Error updating task:', err);
+        },
+      });
   }
 }

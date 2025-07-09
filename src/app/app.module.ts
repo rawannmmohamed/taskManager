@@ -20,6 +20,7 @@ import { StoreModule } from '@ngrx/store';
 import { authReducer } from './ngrx/auth/auth.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { AuthEffects } from './ngrx/auth/auth.effects';
+import { TableModule } from 'primeng/table';
 
 const MyPreset = definePreset(Aura, {
   semantic: {
@@ -47,6 +48,7 @@ const MyPreset = definePreset(Aura, {
     AuthRoutingModule,
     AuthModule,
     FormsModule,
+    TableModule,
     StoreModule.forRoot({auth: authReducer}),
     EffectsModule.forRoot([AuthEffects])
   ],

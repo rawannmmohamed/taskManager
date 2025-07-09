@@ -34,13 +34,15 @@
       <td>
         <p-cellEditor>
           <ng-template #input>
-            <input pInputText type="text" [(ngModel)]="task.id" />
+            <input pInputText type="text" [(ngModel)]="task.id" fluid />
           </ng-template>
           <ng-template #output>
             {{ task.id }}
           </ng-template>
         </p-cellEditor>
       </td>
+
+      @if(role ==='admin'){
       <td>
         <p-cellEditor>
           <ng-template #input>
@@ -51,8 +53,19 @@
           </ng-template>
         </p-cellEditor>
       </td>
+      } @else {
+      <td [pEditableColumn]="task.title" pEditableColumnField="title">
+        <p-cellEditor>
+          <ng-template #input>
+            <input pInputText type="text" [(ngModel)]="task.title" fluid />
+          </ng-template>
+          <ng-template #output>
+            {{ task.title }}
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      } @if(role ==='admin'){
       <td>
-        @if(role ==='admin'){
         <p-cellEditor>
           <ng-template #input>
             <input
@@ -64,8 +77,14 @@
           </ng-template>
           <ng-template #output>
             {{ task.assignedTo }}
-          </ng-template> </p-cellEditor
-        >} @else {
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      } @else {
+      <td
+        [pEditableColumn]="task.description"
+        pEditableColumnField="description"
+      >
         <p-cellEditor>
           <ng-template #input>
             <input
@@ -79,9 +98,8 @@
             {{ task.description }}
           </ng-template>
         </p-cellEditor>
-        }
       </td>
-
+      } @if(role==='admin') {
       <td>
         <p-cellEditor>
           <ng-template #input>
@@ -100,46 +118,52 @@
           </ng-template>
         </p-cellEditor>
       </td>
+      } @else {
+      <td [pEditableColumn]="task.status" pEditableColumnField="status">
+        <p-cellEditor>
+          <ng-template #input>
+            <p-select
+              [options]="statuses"
+              appendTo="body"
+              [(ngModel)]="task.status"
+              [style]="{ width: '100%' }"
+            />
+          </ng-template>
+          <ng-template #output>
+            <p-tag
+              [value]="task.status"
+              [severity]="getSeverity(task.status)"
+            />
+          </ng-template>
+        </p-cellEditor>
+      </td>
+      }
 
       <td>
-        <div class="flex items-center justify-center gap-2">
-          <button
-            *ngIf="!editing"
-            pButton
-            pRipple
-            type="button"
-            pInitEditableRow
-            icon="pi pi-pencil"
-            (click)="onRowEditInit(tasks)"
-            text
-            rounded
-            severity="secondary"
-          ></button>
-          <button
-            *ngIf="editing"
-            pButton
-            pRipple
-            type="button"
-            pSaveEditableRow
-            icon="pi pi-check"
-            (click)="onRowEditSave(tasks)"
-            text
-            rounded
-            severity="secondary"
-          ></button>
-          <button
+        @if(role === 'user'){<button
+          pButton
+          pRipple
+          type="button"
+          pSaveEditableRow
+          icon="pi pi-check"
+          (click)="onRowEditSave(task)"
+          text
+          rounded
+          severity="secondary"
+        ></button
+        >}
+        <!-- <button
             *ngIf="editing"
             pButton
             pRipple
             type="button"
             pCancelEditableRow
             icon="pi pi-times"
-            (click)="onRowEditCancel(tasks, ri)"
+            (click)="onRowEditCancel(task, ri)"
             text
             rounded
             severity="secondary"
-          ></button>
-        </div>
+          ></button> -->
       </td>
     </tr>
   </ng-template>

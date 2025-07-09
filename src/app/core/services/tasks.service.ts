@@ -20,4 +20,10 @@ export class TasksService {
       .get<Task[]>('https://67828a3fc51d092c3dcfe2da.mockapi.io/api/tasks')
       .pipe(map((tasks) => tasks.filter((task) => task.assignedTo === userId)));
   }
+  updateTask(taskId: string, userId: string, newTask: Task) {
+    return this.http.put<Task>(
+      `https://67828a3fc51d092c3dcfe2da.mockapi.io/api/users/${userId}/tasks/${taskId}`,
+      newTask
+    );
+  }
 }
