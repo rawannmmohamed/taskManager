@@ -14,7 +14,7 @@ import { TagModule } from 'primeng/tag';
 import { SelectModule } from 'primeng/select';
 import { FormsModule } from '@angular/forms';
 import { ButtonModule } from 'primeng/button';
-
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 @NgModule({
   declarations: [UserComponent, AdminComponent, DashboardLayoutComponent],
   imports: [
@@ -30,6 +30,7 @@ import { ButtonModule } from 'primeng/button';
     SelectModule,
     FormsModule,
     ButtonModule,
+    ProgressSpinnerModule 
   ],
 })
 export class DashboardModule {}

@@ -12,6 +12,9 @@ import { Task } from '../../../models/task';
   styleUrl: './dashboard-layout.component.scss',
 })
 export class DashboardLayoutComponent {
+onRowdelete(_t27: any,_t29: any) {
+throw new Error('Method not implemented.');
+}
   avatar = '';
   role = '';
   tasks: Task[] = [];
@@ -64,7 +67,7 @@ export class DashboardLayoutComponent {
       .updateTask(editedTask.id, this.userId, editedTask)
       .subscribe({
         next: () => {
-          console.log('Task updated:', editedTask);
+          console.log('Task updated');
         },
         error: (err) => {
           console.error('Error updating task:', err);
@@ -81,7 +84,7 @@ export class DashboardLayoutComponent {
     };
     this.tasksService.addNewTask(newTask, this.userId).subscribe({
       next: () => {
-        console.log('New Task:', newTask);
+        console.log('New Task added');
       },
       error: (err) => {
         console.error('Error adding new task:', err);
