@@ -9,7 +9,7 @@
     </div>
   </ng-template>
 </p-menubar>
-@defer {<p-table
+@defer (on viewport) {<p-table
   [value]="tasks"
   dataKey="id"
   editMode="row"
@@ -171,16 +171,18 @@
           type="button"
           pCancelEditableRow
           icon="pi pi-times"
-          (click)="onRowdelete(task, ri)"
+          (click)="onRowdelete(task)"
           text
           rounded
           severity="danger"
         ></button>
       </td>
+      }@else{
+        <td></td>
       }
     </tr>
   </ng-template> </p-table
->} @loading(minimum 1s) {
+>} @placeholder(minimum 1s) {
 <div class="flex justify-center items-center h-full">
   <p-progress-spinner ariaLabel="loading" />
 </div>

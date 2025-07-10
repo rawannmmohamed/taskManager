@@ -5,6 +5,7 @@ import { selectUser } from '../../../ngrx/auth/auth.selectors';
 import { TasksService } from '../../../core/services/tasks.service';
 import { Task } from '../../../models/task';
 
+
 @Component({
   selector: 'app-dashboard-layout',
   standalone: false,
@@ -12,36 +13,15 @@ import { Task } from '../../../models/task';
   styleUrl: './dashboard-layout.component.scss',
 })
 export class DashboardLayoutComponent {
-onRowdelete(_t27: any,_t29: any) {
-throw new Error('Method not implemented.');
-}
   avatar = '';
   role = '';
   tasks: Task[] = [];
-  statuses: any[] | undefined;
+  statuses: { label: string; value: string }[] | undefined;
   userId = '';
 
   constructor(private store: Store, private tasksService: TasksService) {}
   ngOnInit(): void {
-    this.store.select(selectUser).subscribe((user: User | null) => {
-      if (user) {
-        this.avatar = user.image;
-        this.role = user.role;
-        this.userId = user.id;
-        if (this.role === 'admin') {
-          this.tasksService.getallTasks().subscribe((data: Task[]) => {
-            this.tasks = data;
-            console.log(data);
-            console.log(this.tasks);
-          });
-        } else {
-          this.tasksService.getTasksById(user.id).subscribe((data: Task[]) => {
-            this.tasks = data;
-            console.log(this.tasks);
-          });
-        }
-      }
-    });
+    this.loadData();
     this.statuses = [
       { label: 'Completed', value: 'Completed' },
       { label: 'Pending', value: 'Pending' },
@@ -62,6 +42,23 @@ throw new Error('Method not implemented.');
     }
   }
 
+  loadData() {
+  this.store.select(selectUser).pipe().subscribe((user: User | null) => {
+    if (user) {
+      this.avatar = user.image;
+      this.role = user.role;
+      this.userId = user.id;
+
+      const taskRequest = this.role === 'admin'
+        ? this.tasksService.getallTasks()
+        : this.tasksService.getTasksById(this.userId);
+
+      taskRequest.subscribe((data: Task[]) => {
+        this.tasks = data;
+      });
+    }
+  });
+}
   onRowEditSave(editedTask: Task) {
     this.tasksService
       .updateTask(editedTask.id, this.userId, editedTask)
@@ -76,7 +73,7 @@ throw new Error('Method not implemented.');
   }
   addNewTask() {
     const newTask: Task = {
-      id: Math.floor(Math.random() * 1000000).toString(),
+      id: '',
       title: '',
       status: 'Pending',
       assignedTo: this.userId,
@@ -84,13 +81,24 @@ throw new Error('Method not implemented.');
     };
     this.tasksService.addNewTask(newTask, this.userId).subscribe({
       next: () => {
+        this.loadData();
         console.log('New Task added');
       },
       error: (err) => {
         console.error('Error adding new task:', err);
       },
     });
+  }
 
-    this.tasks = [newTask, ...this.tasks];
+  onRowdelete(removedTask: Task) {
+    this.tasksService.deleteTask(removedTask.id, this.userId).subscribe({
+      next: () => {
+        this.loadData();
+        console.log('Task deleted');
+      },
+      error: (err) => {
+        console.error('Error deleting task:', err);
+      },
+    });
   }
 }

@@ -32,4 +32,9 @@ export class TasksService {
       newTask
     );
   }
+  deleteTask(taskId: string, userId: string) {
+    return this.http.delete<Task>(
+      `https://67828a3fc51d092c3dcfe2da.mockapi.io/api/users/${userId}/tasks/${taskId}`
+    );
+  }
 }
